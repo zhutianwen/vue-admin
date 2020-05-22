@@ -6,6 +6,23 @@ import router from './router'
 
 Vue.config.productionTip = false
 
+//引入element ui
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
+//引入全局样式
+import 'assets/css/glob.css'
+
+
+//引入阿里巴巴矢量图标
+import './fonts/iconfont.css'
+
+//引入axios
+// import axios from 'axios'
+// axios.defaults.baseURL = ''
+// Vue.prototype.$http = axios
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

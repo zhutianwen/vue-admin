@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1590125802039'); /* IE9 */
+  src: url('iconfont.eot?t=1590125802039#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAO4AAsAAAAAB5QAAANpAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqCfIJvATYCJAMMCwgABCAFhG0HNxu2Bsg+QDZkA7VOBIRGA6PFHr3Np7vu7+Nu8oAwEVRj6N7/B9ElClBl4sOSFIGKSoQlidD6yk5VPQtZHs9C9X/X9Kc0YrtlyJC7Xil9uQxJKEBNbFuhBo7UZqcmCcxu27eRd9PUOiUrwd1UxwlVlMzg/+CE8yTg9ORHj0948znlJAgkDzHEwLwd5DWU3g0oKtCq8/2Pe6dNobGfZbn83d46t0ddgHFAAY21qS1aQAFxw9gFLXE9gVrdIqCZoooGsFWY3QKxJ4m9YJuxKA35oVqorBhbxDVUqE4nimvgKvh+/IPRsCWpyMy+i7uFA5DzM89YOfNfGx4NiOlcYJPIGAEKsVXpWaGMIiOUalWNqjm9UhHSVP7/CXBNV7nRP14iKpm59WAAmpKLIhwZwS9jkINsrfQYsQPgFWS3vyNLfY4ekY6yI/r60AyNfZjH7u+b7tO3oPbFHqWj/ex0dsjK4wOfaXdcDdGsEXbKw2XlKrReltHTlm2+fq24bHml29uG3scez/5fRjV+0tNAGTq2S6tNEA3RdnXhPVBRZ2cRshDvYFRkb/W0imJ1aKhVEV7hY63l4fkxOZaOJi+rfklQ98plqHI+c9CkVv+3X1cmYzbg+Hql2V95XNn79kfwHK6TWOJ/8ZGjzAmumjVXY/GwCKwtL82FXXuXhqH24aE2V4kwApVhWef1TuWc63aHnocCc4uz08EK13FNCeruQcUW4qlKKJV4oYfZMQ8rPiAvKe5/2G+8/O12xisdCvhxiwNL0V1XfTve4PcQHUuKpoe1RcEd3PBls7caTqjVtH5KIbR6Gq7r6JxLqNaRQFKlC7JqPfTCHoEKdcagUrVxqDWseHKdNoxSlBoMWQQQmp1C0ugNZM1u6IX9CBU6vUCl5lBCraXwmLNOX0j2+Yz0cjKA+0ax1E9Ngm3n9mF+HREHDb0sTQXCJsJkyY9jo2Ly8WJiImyKAfKQGMe5gAVGjbgIbEYMBorNjOpIP4/Scm5Oi44Wqq4U1U+NYG8aQ/TiiAFYn1GYpB9lIniVOfvC5+sQokEGvVhDUVW+CcHIpNqxWFFiOtCLNaZORbdyiWyIKA7HCTABQxlhRcBFGKwIhZmrW+kQ/bgo2gEhszTRqJzQVRO1vM74fquglrlkjhQ5irIvGXs1o9QkagcBAAAAAA==') format('woff2'),
+  url('iconfont.woff?t=1590125802039') format('woff'),
+  url('iconfont.ttf?t=1590125802039') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1590125802039#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-mima:before {
+  content: "\e621";
+}
+
+.icon-yonghu:before {
+  content: "\e720";
+}
+
