@@ -10,6 +10,8 @@ export function request(config){ //封装函数
     //2.axios拦截器
     //2.1 请求拦截
     instance.interceptors.request.use(config =>{
+        //为请求头对象，添加Token 验证的Authorization字段
+        config.headers.Authorization = window.sessionStorage.getItem('token')
         return config
     },err=>{
         console.log(err)

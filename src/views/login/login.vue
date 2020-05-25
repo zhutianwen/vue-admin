@@ -74,7 +74,7 @@ export default {
                                 duration:2000
                             })
                         }else{
-                            console.log(res);
+                            // console.log(res);
                             window.sessionStorage.setItem("token",res.data.token)//蒋token值存储到sessionStorage
                             this.$router.push({
                                 path:'/home'
