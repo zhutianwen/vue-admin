@@ -23,6 +23,10 @@ import './fonts/iconfont.css'
 // axios.defaults.baseURL = ''
 // Vue.prototype.$http = axios
 
+// import axios from 'axios'
+// axios.defaults.baseURL = '/api'
+// Vue.prototype.$axios = axios
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

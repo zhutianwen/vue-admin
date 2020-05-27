@@ -1,31 +1,21 @@
 <template>
     <div class="users">
         <!-- 面包屑导航 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-            <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <bread-crumb></bread-crumb>
         <!-- 卡片区域 -->
         <el-card>
-            <el-row :gutter="20">
-                <el-col :span="7">
-                    <el-input placeholder="请输入内容">
-                        <el-button slot="append" icon="el-icon-search"></el-button>
-                    </el-input>
-                </el-col>
-                <el-col :span="4">
-                    <el-button type="primary">添加用户</el-button>
-                </el-col>
-            </el-row>
+            <!-- 搜索 -->
+            <search></search>
             <!-- 表格 -->
-            <el-table :data="this.usersList" border stripe>
-                <el-table-column type="index"></el-table-column>
-                <el-table-column prop="username" label="姓名"></el-table-column>
-                <el-table-column prop="email" label="邮箱"></el-table-column>
-                <el-table-column prop="mobile" label="电话"></el-table-column>
-                <el-table-column prop="role_name" label="角色"></el-table-column>
-            </el-table>
+            <form-table :userList = "userList"></form-table>
+            <!-- 分页 -->
+            <!-- <pagination :pagesize = "pagesize" @updatePagesize = "updatePagesize"></pagination> 原版-->
+            <!-- <pagination :pagesize = "pagesize" @update:pagesize = "updatePagesize"></pagination> 简化-->
+            <pagination
+             :pagesize.sync = "pagesize"
+               :pagenum.sync = "pagenum"
+               :total.sync = "total"
+                :getUsers="getUsers"></pagination> <!-- 最终版-->
         </el-card>
     </div>
 </template>
@@ -34,16 +24,22 @@
 
 import {getUsers} from 'api/api.js'
 
+import BreadCrumb from './children/BreadCrumb'
+import Search from './children/Search'
+import formTable from './children/formTable'
+import pagination from './children/pagination'
+
+
 export default {
     name:'users',
     data(){
         return{
-            query:'',
-            pagenum:1,
-            pagesize:2,  
-            usersList:[],
-            total:0,
-           
+           query:'',
+           pagenum:1,//currentPage4 当前页
+           pagesize:2,//page-size 当前显示几条
+           total:0,//总页码
+           userList:[],//用户列表
+           myMsg:'我是父组件参数'
         }
     },
     created(){
@@ -51,28 +47,24 @@ export default {
     },
     methods:{
         getUsers(){
-            let query = this.query
-            let pagenum = this.pagenum
-            let pagesize = this.pagesize
-            getUsers(query,pagenum,pagesize).then(res =>{
+            getUsers(this.query,this.pagenum,this.pagesize).then(res =>{
                 console.log(res)
-                this.usersList = res.data.users
+                this.userList = res.data.users
                 this.total = res.data.total
-                console.log(this.usersList)
             })
         },
+    },
+    components:{
+        BreadCrumb,
+        Search,
+        formTable,
+        pagination,
     },
 }
 </script>
 
 <style>
-    .el-breadcrumb{
-        margin-bottom: 20px;
-    }
     .el-card{
         box-shadow: 0 1px 1px rgba(0,0,0,0.15)!important;
-    }
-    .el-table{
-        margin-top: 25px;;
     }
 </style>
