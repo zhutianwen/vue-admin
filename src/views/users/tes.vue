@@ -290,3 +290,114 @@ export default {
         margin-top: 25px;
     }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+<template>
+    <el-dialog
+        title="添加用户"
+        :visible.sync="addUserVisible"
+        width="50%">
+        <el-form
+        :model="addUserFrom"
+         ref="addUserForm"
+          label-width="70px"
+           :rules="rules1"> 
+            <el-form-item label="姓名" prop="name">
+                <el-input v-model="addUserFrom.username"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+                <el-input v-model="addUserFrom.password"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" prop="email">
+                <el-input v-model="addUserFrom.email"></el-input>
+            </el-form-item>
+            <el-form-item label="手机" prop="mobile">
+                <el-input v-model="addUserFrom.mobile"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="cancel">取 消</el-button>
+            <el-button type="primary" @click="addUserVisible = false">确 定</el-button>
+        </span>
+    </el-dialog>
+</template>
+
+<script>
+
+import {getAddUser} from 'api/api.js'
+
+export default {
+    name:'AddUser',
+    data(){
+        var checkPhone =(rule,value,callback) =>{
+            const regPhone = /^(0|86|17951)?(13[0-9]|15[0123456789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+            if(regPhone.test(value)){
+               return callback()
+           }else{
+               return callback(new Error('手机号有误'));
+           } 
+        };
+        var checkEmail =(rule,value,callback) =>{
+           const regEmail =/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+           if(regEmail.test(value)){
+               return callback()
+           }else{
+               return callback(new Error('邮箱有误'));
+           } 
+        };
+        return{
+            addUserFrom:{
+                username:'',
+                password:'',
+                email:'',
+                mobile:''
+            },
+            rules1:{
+                name: [
+                    { required: true, message: '请输入活动名称', trigger: 'blur' },
+                    { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                ],
+                // 密码
+                password:[
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }    
+                ],
+                // 邮箱
+                email:[
+                    { required: true, message: '请输入邮箱', trigger: 'blur' },
+                    { validator: checkEmail, trigger: 'blur'}  
+                ],
+                // 手机
+                mobile:[
+                    { required: true, message: '请输入手机号', trigger: 'blur' },
+                    { validator: checkPhone, trigger: 'blur' }
+                ],
+            },
+        }
+    },
+    props:{
+        addUserVisible:{
+            type:Boolean,
+        }
+    },
+    methods:{
+        cancel(){
+            this.$emit('update:addUserVisible',false)
+        }
+    },
+}
+</script>
+
+<style>
+
+</style>

@@ -5,17 +5,23 @@
         <!-- 卡片区域 -->
         <el-card>
             <!-- 搜索 -->
-            <search></search>
+            <search
+             @getUsers="getUsers" 
+              :getUsers="getUsers" 
+             :query = "query"
+             @newQuery="newQuery"
+             ></search>
             <!-- 表格 -->
             <form-table :userList = "userList"></form-table>
             <!-- 分页 -->
-            <!-- <pagination :pagesize = "pagesize" @updatePagesize = "updatePagesize"></pagination> 原版-->
+            <!-- <pagination :pagesize = "pagesize" @updatePagesize = "updatePagesize"></pagination>  -->
             <!-- <pagination :pagesize = "pagesize" @update:pagesize = "updatePagesize"></pagination> 简化-->
             <pagination
              :pagesize.sync = "pagesize"
                :pagenum.sync = "pagenum"
                :total.sync = "total"
-                :getUsers="getUsers"></pagination> <!-- 最终版-->
+                :getUsers="getUsers"></pagination> <!--最终版-->
+            
         </el-card>
     </div>
 </template>
@@ -30,6 +36,7 @@ import formTable from './children/formTable'
 import pagination from './children/pagination'
 
 
+
 export default {
     name:'users',
     data(){
@@ -39,7 +46,6 @@ export default {
            pagesize:2,//page-size 当前显示几条
            total:0,//总页码
            userList:[],//用户列表
-           myMsg:'我是父组件参数'
         }
     },
     created(){
@@ -47,18 +53,31 @@ export default {
     },
     methods:{
         getUsers(){
-            getUsers(this.query,this.pagenum,this.pagesize).then(res =>{
-                console.log(res)
+            let query = this.query
+            let pagenum = this.pagenum
+            let pagesize = this.pagesize
+            getUsers(query,pagenum,pagesize).then(res =>{
                 this.userList = res.data.users
                 this.total = res.data.total
             })
         },
+        newQuery(val){
+            // console.log(val)
+            this.query = val
+            this.getUsers();
+        },
     },
+    // watch:{
+    //     query(query){
+    //         console.log(query)
+    //     }
+    // },
     components:{
         BreadCrumb,
         Search,
         formTable,
         pagination,
+        
     },
 }
 </script>

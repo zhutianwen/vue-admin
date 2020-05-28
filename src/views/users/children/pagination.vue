@@ -34,10 +34,11 @@ export default {
             // this.$emit('updatePagesize',val);原版
             this.$emit('update:pagesize',val)
             this.getUsers();
+        
         },
         handleCurrentChange(val){//监听页码变化
             this.$emit('update:pagenum',val)
-            
+            // console.log(val)
             this.getUsers();
         },
     },

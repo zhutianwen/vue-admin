@@ -50,3 +50,10 @@ export function getUserId(id){//根据id查询用户信息
         // url:'users/'+id,
     })
 }
+
+export function getNewUser(id){//根据id查询用户信息
+    return request({
+        method:'put',
+        url:`users/${id}`,
+    })
+}
