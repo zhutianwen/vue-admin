@@ -12,7 +12,7 @@
              @newQuery="newQuery"
              ></search>
             <!-- 表格 -->
-            <form-table :userList = "userList"></form-table>
+            <form-table :userList = "userList" @getUsers="getUsers"></form-table>
             <!-- 分页 -->
             <!-- <pagination :pagesize = "pagesize" @updatePagesize = "updatePagesize"></pagination>  -->
             <!-- <pagination :pagesize = "pagesize" @update:pagesize = "updatePagesize"></pagination> 简化-->

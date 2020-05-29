@@ -55,7 +55,12 @@ export default {
                 return {}
             }
         },
+        getUsers:{
+            type: Function,
+            default: null
+        }
     },
+    inheritAttrs: false,
     methods:{
         handleClose(){
             this.$emit('update:modifyVisible',false)
@@ -70,15 +75,15 @@ export default {
         modfiyUser(){//修改用户资料提交
             this.$refs.ModifyUserRef.validate(vaild=>{
                 if(!vaild) return
-                // let id = this.ModifyUserForm.id
-                let mobile = this.ModifyUserForm.mobile
-                let email = this.ModifyUserForm.email
-                // console.log(id)
-                console.log(email)
-                console.log(mobile)
-                // console.log(ModifyUserForm.username)
-                getNewUser(this.ModifyUserForm.id,mobile,email).then(res=>{
-                    console.log(res)
+                getNewUser(this.ModifyUserForm.id,
+                this.ModifyUserForm.email,
+                this.ModifyUserForm.mobile).then(res=>{
+                    if(res.meta.status !==200){
+                        this.$message.error('更新用户信息失败')
+                    }else{
+                        this.$emit('update:modifyVisible',false)
+                        this.$listeners.getUsers()
+                    }
                 })
             })
         },

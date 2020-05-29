@@ -51,9 +51,22 @@ export function getUserId(id){//根据id查询用户信息
     })
 }
 
-export function getNewUser(id){//根据id查询用户信息
+export function getNewUser(id,email,mobile){//根据id查询用户信息
     return request({
         method:'put',
         url:`users/${id}`,
+        data:{
+            email,mobile
+        }
+    })
+}
+
+export function deleteUser(id){//根据id查询用户信息
+    return request({
+        method:'delete',
+        url:`users/${id}`,
+        data:{
+            id
+        }
     })
 }

@@ -15,7 +15,7 @@
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button @click="showModfiy(scope.row.id)" size="small" type="primary" icon="el-icon-edit"></el-button>
-                    <el-button size="small" type="danger" icon="el-icon-delete"></el-button>
+                    <el-button @click="deleteUser(scope.row.id)" size="small" type="danger" icon="el-icon-delete"></el-button>
                     <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
                         <el-button size="small" type="warning" icon="el-icon-setting"></el-button>
                     </el-tooltip>
@@ -23,14 +23,16 @@
             </el-table-column>
         </el-table>
         <!-- 对话框 -->
-        <modify-user :modifyVisible.sync = "modifyVisible" :ModifyUserForm="ModifyUserForm"></modify-user>    
+        <modify-user :modifyVisible.sync = "modifyVisible"
+         :ModifyUserForm="ModifyUserForm"
+         v-on="$listeners"></modify-user>    
         
     </el-container>
 </template>
 
 <script>
 
-import {getSwitchType,getUserId} from 'api/api.js'
+import {getSwitchType,getUserId,deleteUser} from 'api/api.js'
 import ModifyUser from './ModifyUser'
 
 
@@ -68,12 +70,37 @@ export default {
                     return this.$message.error('查询用户信息失败')
                 }else{
                     this.ModifyUserForm = res.data
-                    console.log('ModifyUserForm',this.ModifyUserForm)
+                    // console.log('ModifyUserForm',this.ModifyUserForm)
                 }
             })
         },
+        async deleteUser(id){//根据id删除用户
+           const confirmResult = await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).catch((err)=>{
+                // console.log(err)
+                return err
+            })
+            //用户删除返回confirm
+            //用户取消返回cancle
+            if(confirmResult !== 'confirm'){
+                this.$message.info('已取消删除')
+            }else{
+                deleteUser(id).then(res=>{
+                    // console.log(res)
+                    if(res.meta.status == 200){
+                        this.$message.success('删除成功');
+                        this.$listeners.getUsers();
+                    }else{
+                        this.$message.error('删除用户失败')
+                    }
+                })
+            }
+        },
     },
-    
+    inheritAttrs: false,
     components:{
         ModifyUser,
     }
