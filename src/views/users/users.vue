@@ -1,7 +1,10 @@
 <template>
     <div class="users">
         <!-- 面包屑导航 -->
-        <bread-crumb></bread-crumb>
+        <bread-crumb>
+            <el-breadcrumb-item slot="one">用户管理</el-breadcrumb-item>
+            <el-breadcrumb-item slot="two">用户列表</el-breadcrumb-item>
+        </bread-crumb>
         <!-- 卡片区域 -->
         <el-card>
             <!-- 搜索 -->
@@ -30,7 +33,7 @@
 
 import {getUsers} from 'api/api.js'
 
-import BreadCrumb from './children/BreadCrumb'
+import breadCrumb from 'components/breadCrumb/breadCrumb'
 import Search from './children/Search'
 import formTable from './children/formTable'
 import pagination from './children/pagination'
@@ -73,7 +76,7 @@ export default {
     //     }
     // },
     components:{
-        BreadCrumb,
+        breadCrumb,
         Search,
         formTable,
         pagination,

@@ -70,3 +70,74 @@ export function deleteUser(id){//根据id查询用户信息
         }
     })
 }
+export function getAllRights(type){//所有权限列表
+    return request({
+        url:`rights/${type}`,
+        data:{
+            type
+        }
+    })
+}
+export function getAllroles(){//所有角色列表
+    return request({
+        url:'roles',
+    })
+}
+export function addRoles(roleName,roleDesc){//添加角色
+    return request({
+        method:'post',
+        url:'roles',
+        data:{
+            roleName,
+            roleDesc
+        }
+    })
+}
+export function rolesInfo(id){//根据id查询角色
+    return request({
+        url:`roles/${id}`,
+    })
+}
+export function putRolesInfo(id,roleName,roleDesc){//提交角色信息
+    return request({
+        method:'put',
+        url:`roles/${id}`,
+        data:{
+            id,roleName,roleDesc
+        }
+    })
+}
+export function deleteRoles(id){//提交角色信息
+    return request({
+        method:'delete',
+        url:`roles/${id}`,
+        data:{
+            id
+        }
+    })
+}
+export function deleteRolespower(roleId,rightId){//删除指定角色权限
+    return request({
+        method:'delete',
+        url:`roles/${roleId}/rights/${rightId}`,
+        data:{
+            roleId,
+            rightId
+        }
+    })
+}
+export function getAllRithts(type){//获取所有权限列表
+    return request({
+        url:`rights/${type}`,
+    })
+}
+export function putRoleRights(roleId,rids){//角色授权
+    return request({
+        method:'post',
+        url:`roles/${roleId}/rights`,
+        data:{
+            roleId,
+            rids
+        }
+    })
+}
