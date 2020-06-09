@@ -116,6 +116,17 @@ export function deleteRoles(id){//提交角色信息
         }
     })
 }
+
+export function putUserRole(id,rid){//分配角色
+    return request({
+        method:'put',
+        url:`users/${id}/role`,
+        data:{
+            id,rid
+        }
+    })
+}
+
 export function deleteRolespower(roleId,rightId){//删除指定角色权限
     return request({
         method:'delete',
@@ -126,6 +137,9 @@ export function deleteRolespower(roleId,rightId){//删除指定角色权限
         }
     })
 }
+
+
+
 export function getAllRithts(type){//获取所有权限列表
     return request({
         url:`rights/${type}`,

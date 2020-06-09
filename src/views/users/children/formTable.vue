@@ -17,7 +17,7 @@
                     <el-button @click="showModfiy(scope.row.id)" size="small" type="primary" icon="el-icon-edit"></el-button>
                     <el-button @click="deleteUser(scope.row.id)" size="small" type="danger" icon="el-icon-delete"></el-button>
                     <el-tooltip class="item" effect="dark" content="分配角色" placement="top" :enterable="false">
-                        <el-button size="small" type="warning" icon="el-icon-setting"></el-button>
+                        <el-button @click="showJuese(scope.row)" size="small" type="warning" icon="el-icon-setting"></el-button>
                     </el-tooltip>
                 </template>
             </el-table-column>
@@ -26,14 +26,21 @@
         <modify-user :modifyVisible.sync = "modifyVisible"
          :ModifyUserForm="ModifyUserForm"
          v-on="$listeners"></modify-user>    
-        
+        <!-- 分配角色对话框 -->
+        <fenpeiJue 
+                :fenpeiJueDialog.sync="fenpeiJueDialog"
+                :roleinfo.sync="roleinfo"
+                :rolesList="rolesList"
+                :selectRoleId.sync="selectRoleId"
+                v-on="$listeners"></fenpeiJue>
     </el-container>
 </template>
 
 <script>
 
-import {getSwitchType,getUserId,deleteUser} from 'api/api.js'
+import {getSwitchType,getUserId,deleteUser,getAllroles} from 'api/api.js'
 import ModifyUser from './ModifyUser'
+import fenpeiJue from './fenpeiJue'
 
 
 export default {
@@ -41,9 +48,14 @@ export default {
     data(){
         return{
            modifyVisible:false,
+           fenpeiJueDialog:false,
            ModifyUserForm:{},//修改的用户信息
+           roleinfo:{},//用户信息
+           rolesList:[],
+           selectRoleId:'',//已选中角色的id值
         }
     },
+    inheritAttrs: false,
     props:{
         userList:{
             type:Array,
@@ -99,10 +111,20 @@ export default {
                 })
             }
         },
+        showJuese(roleinfo){//展示
+            this.roleinfo = roleinfo
+            //获取所有角色列表
+            getAllroles().then(res=>{
+                // console.log(res)
+                this.rolesList = res.data
+            })
+            this.fenpeiJueDialog = true;
+        },
     },
     inheritAttrs: false,
     components:{
         ModifyUser,
+        fenpeiJue
     }
 }
 </script>

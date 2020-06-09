@@ -144,7 +144,7 @@ export default {
                 this.$message.info('已取消删除')
             }else{
                 deleteRolespower(roleId,rightId).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     if(res.meta.status == 200){
                         this.$message.success('删除成功');
                         // this.$listeners.getAllroles();
