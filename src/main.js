@@ -28,6 +28,13 @@ import './fonts/iconfont.css'
 // Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
+
+//引入树形插件
+import ZkTable from 'vue-table-with-tree-grid'
+
+Vue.use(ZkTable);
+
+
 new Vue({
   el: '#app',
   router,

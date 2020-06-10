@@ -139,12 +139,12 @@ export function deleteRolespower(roleId,rightId){//删除指定角色权限
 }
 
 
-
 export function getAllRithts(type){//获取所有权限列表
     return request({
         url:`rights/${type}`,
     })
 }
+
 export function putRoleRights(roleId,rids){//角色授权
     return request({
         method:'post',
@@ -152,6 +152,17 @@ export function putRoleRights(roleId,rids){//角色授权
         data:{
             roleId,
             rids
+        }
+    })
+}
+
+export function goodsList(type,pagenum,pagesize){//商品分类数据列表
+    return request({
+        url:'categories',
+        params:{
+            type,
+            pagenum,
+            pagesize
         }
     })
 }
