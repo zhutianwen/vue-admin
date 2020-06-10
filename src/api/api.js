@@ -166,3 +166,39 @@ export function goodsList(type,pagenum,pagesize){//商品分类数据列表
         }
     })
 }
+
+export function addCategories(cat_pid,cat_name,cat_level){//添加分类
+    return request({
+        method:'post',
+        url:'categories',
+        data:{
+            cat_pid,cat_name,cat_level
+        }
+    })
+}
+
+export function getCateById(id){//根据id查询分类
+    return request({
+        url:`categories/${id}`,
+    })
+}
+
+export function putCateById(id,cat_name){//编辑提交分类
+    return request({
+        method:'put',
+        url:`categories/${id}`,
+        data:{
+            id,cat_name
+        }
+    })
+}
+
+export function deleteCateById(id){//删除分类
+    return request({
+        method:'delete',
+        url:`categories/${id}`,
+        data:{
+            id
+        }
+    })
+}

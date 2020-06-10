@@ -7,7 +7,7 @@
         </bread-crumb>
         <!-- 卡片 -->
         <el-card>
-            <table-form :cateList="cateList"></table-form>
+            <table-form :cateList="cateList" @goodsList="goodsList"></table-form>
             <!-- 分页 -->
             <pagination
             :pagenum.sync="pagenum"
