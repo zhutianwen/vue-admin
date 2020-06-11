@@ -212,3 +212,37 @@ export function getAttributes(id,sel){// 参数列表
         }
     })
 }
+
+export function addParams(id,attr_name,attr_sel){// 添加动态参数或者静态属性
+    return request({
+        method:'post',
+        url:`categories/${id}/attributes`,
+        data:{
+            attr_name,attr_sel
+        }
+    })
+}
+
+export function queryParams(id,attrId,attr_sel){//  根据 ID 查询参数
+    return request({
+        url:`categories/${id}/attributes/${attrId}`,
+        params:{
+            id,
+            attrId,
+           attr_sel
+        }
+    })
+}
+
+export function putParams(id,attrId,attr_name,attr_sel){//  编辑提交参数
+    return request({
+        method:'put',
+        url:`categories/${id}/attributes/${attrId}`,
+        data:{
+            id,
+            attrId,
+           attr_name,
+           attr_sel
+        }
+    })
+}
