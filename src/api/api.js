@@ -202,3 +202,13 @@ export function deleteCateById(id){//删除分类
         }
     })
 }
+
+// 分类参数管理
+export function getAttributes(id,sel){// 参数列表
+    return request({
+        url:`categories/${id}/attributes`,
+        params:{
+            sel
+        }
+    })
+}
