@@ -40,7 +40,22 @@
                         style="width: 100%"
                         border
                         stripe>
-                        <el-table-column type="expand"></el-table-column>
+                        <el-table-column type="expand">
+                            <template slot-scope="scope">
+                                <el-tag @close="handleClose(i,scope.row)" closable v-for="(item,i) in scope.row.attr_vals" :key="i">{{item}}</el-tag>
+                                <el-input
+                                    class="input-new-tag"
+                                    v-if="scope.row.inputVisible"
+                                    v-model="scope.row.inputValue"
+                                    ref="saveTagInput"
+                                    size="small"
+                                    @keyup.enter.native="handleInputConfirm(scope.row)"
+                                    @blur="handleInputConfirm(scope.row)"
+                                    >
+                                </el-input>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+                            </template>
+                        </el-table-column>
                         <el-table-column type="index"></el-table-column>
                         
                         <el-table-column
@@ -50,7 +65,7 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="openEditParamsDialog(scope.row.attr_id)" size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
-                                <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
+                                <el-button @click="deleteParams(scope.row.attr_id)" size="mini" type="danger" icon="el-icon-delete">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -66,7 +81,22 @@
                         style="width: 100%"
                         border
                         stripe>
-                        <el-table-column type="expand"></el-table-column>
+                        <el-table-column type="expand">
+                            <template slot-scope="scope">
+                                <el-tag @close="handleClose(i,scope.row)" closable v-for="(item,i) in scope.row.attr_vals" :key="i">{{item}}</el-tag>
+                                <el-input
+                                    class="input-new-tag"
+                                    v-if="scope.row.inputVisible"
+                                    v-model="scope.row.inputValue"
+                                    ref="saveTagInput"
+                                    size="small"
+                                    @keyup.enter.native="handleInputConfirm(scope.row)"
+                                    @blur="handleInputConfirm(scope.row)"
+                                    >
+                                </el-input>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+                            </template>
+                        </el-table-column>
                         <el-table-column type="index"></el-table-column>
                         <el-table-column
                             prop="attr_name"
@@ -75,7 +105,7 @@
                         <el-table-column label="操作">
                             <template slot-scope="scope">
                                 <el-button @click="openEditParamsDialog(scope.row.attr_id)" size="mini" type="primary" icon="el-icon-edit">编辑</el-button>
-                                <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
+                                <el-button @click="deleteParams(scope.row.attr_id)" size="mini" type="danger" icon="el-icon-delete">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -104,7 +134,7 @@
 
 <script>
 
-import {goodsList,getAttributes,queryParams} from 'api/api.js'
+import {goodsList,getAttributes,queryParams,deleteParams,putParams} from 'api/api.js'
 import breadCrumb from 'components/breadCrumb/breadCrumb'
 import addParams from './children/addParams'
 import editParams from './children/editParams'
@@ -132,6 +162,8 @@ export default {
             editParamsRuleForm:{//修改参数的表单数据
                
             },
+            // inputVisible:false,
+            // inputValue:'',
         }
     },
     computed:{
@@ -170,6 +202,12 @@ export default {
                 return
             }
             getAttributes(this.catId,this.activeName).then(res=>{
+                res.data.forEach(item=>{
+                   item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+                   //控制文本框的显示与隐藏
+                   item.inputVisible = false;
+                   item.inputValue = ""
+                })
                 // console.log(res.data)
                 if(this.activeName === 'many'){
                     this.manyList = res.data
@@ -197,6 +235,66 @@ export default {
             })
             this.editParamsDialog = true
         },
+        async deleteParams(id){
+            console.log(id)
+          const confirmResult = await this.$confirm('此操作将永久删除该参数, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).catch(err=>{
+                return err
+            })
+            // console.log(confirmResult)
+            if(confirmResult !== 'confirm'){
+                return this.$message.info('已取消删除')
+            }else{
+                deleteParams(this.catId,id).then(res=>{
+                    // console.log(res)
+                    if(res.meta.status !==200){
+                        return this.$message.error('删除失败')
+                    }
+                    this.$message.success('删除成功')
+                    this.getAttributes();
+                })
+            }
+        },
+        putParams(row){//添加参数可选项
+            putParams(this.catId,
+                        row.attr_id,
+                        row.attr_name,
+                        row.attr_sel,
+                        row.attr_vals.join(' ')
+            ).then(res=>{
+                console.log(res);
+                if(res.meta.status !==200){
+                    return this.$message.err('添加失败')
+                }
+                this.$message.success('添加成功')
+            })  
+        },
+        handleInputConfirm(row){
+            if(row.inputValue.trim().length === 0){
+                row.inputValue = '';
+                row.inputVisible = false;
+                return    
+            }
+            //如果没有return 则证明输入了内容 处理
+                row.attr_vals.push(row.inputValue.trim())   
+                row.inputValue = ''; 
+                row.inputVisible = false;
+            //发起请求保存操作  
+                this.putParams(row);
+        },
+        showInput(row){//点击按钮显示文本框
+            row.inputVisible = true;
+            this.$nextTick(_ => {//文本框自动获得焦点
+                this.$refs.saveTagInput.$refs.input.focus();
+            });
+        },
+        handleClose(i,row){//删除对应的参数可选项
+            row.attr_vals.splice(i);
+            this.putParams(row);
+        }
     },
     components:{
         breadCrumb,
@@ -206,11 +304,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .cat_opt{
         margin: 15px 0;
     }
     .elBtn{
         margin-bottom: 15px;
+    }
+    .input-new-tag {
+        width: 90px;
+        margin-left: 10px;
+        vertical-align: bottom;
+    }
+    .el-tag{
+        margin: 0 10px;
     }
 </style>

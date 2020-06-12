@@ -63,10 +63,10 @@ export default {
         },
         addParams(){//点击按钮添加参数
             this.$refs.addParamsRuleForm.validate(valid=>{
-                console.log(valid)
+                // console.log(valid)
                 if(!valid) return
                 addParams(this.catId,this.addParamsRuleForm.attr_name,this.activeName).then(res=>{
-                    console.log(res)
+                    // console.log(res)
                     if(res.meta.status !==201){
                         return this.$message.error('添加失败')
                     }

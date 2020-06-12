@@ -234,7 +234,7 @@ export function queryParams(id,attrId,attr_sel){//  根据 ID 查询参数
     })
 }
 
-export function putParams(id,attrId,attr_name,attr_sel){//  编辑提交参数
+export function putParams(id,attrId,attr_name,attr_sel,attr_vals){//  编辑提交参数
     return request({
         method:'put',
         url:`categories/${id}/attributes/${attrId}`,
@@ -242,7 +242,8 @@ export function putParams(id,attrId,attr_name,attr_sel){//  编辑提交参数
             id,
             attrId,
            attr_name,
-           attr_sel
+           attr_sel,
+           attr_vals
         }
     })
 }
