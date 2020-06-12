@@ -130,7 +130,5 @@ export default {
 </script>
 
 <style>
-    .el-table{
-        margin-top: 25px;
-    }
+    
 </style>

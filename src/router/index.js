@@ -9,6 +9,7 @@ import roles from '@/views/power/roles'
 import goods from '@/views/commodity/goods/goods'
 import params from '@/views/commodity/params/params'
 import categories from '@/views/commodity/categories/categories'
+import addGoods from '@/views/commodity/goods/children/addGoods'
 
 Vue.use(Router)
 
@@ -58,6 +59,10 @@ const router = new Router({
         {
           path:'/categories',
           component:categories
+        },
+        {
+          path:'/goods/addGoods',
+          component:addGoods
         },
       ]
     },

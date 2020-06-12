@@ -258,3 +258,25 @@ export function deleteParams(id,attrId){//   删除参数
         }
     })
 }
+
+//商品管理
+export function getGoodsList(query,pagenum,pagesize){//    商品列表数据
+    return request({
+        url:'goods',
+        params:{
+            query,
+            pagenum,
+            pagesize
+        }
+    })
+}
+
+export function deleteGoodsList(id){//    删除商品
+    return request({
+        method:'delete',
+        url:`goods/${id}`,
+        data:{
+            id
+        }
+    })
+}
