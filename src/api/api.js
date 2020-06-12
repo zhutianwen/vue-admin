@@ -246,3 +246,14 @@ export function putParams(id,attrId,attr_name,attr_sel){//  编辑提交参数
         }
     })
 }
+
+export function deleteParams(id,attrId){//   删除参数
+    return request({
+        method:'delete',
+        url:`categories/${id}/attributes/${attrId}`,
+        data:{
+            id,
+            attrId,
+        }
+    })
+}
