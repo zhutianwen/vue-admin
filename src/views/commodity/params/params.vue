@@ -217,6 +217,7 @@ export default {
             })
         },
         handleChange(){
+            // console.log(this.value)
             this.getAttributes();
         },
         handleClick(){
@@ -266,6 +267,7 @@ export default {
                         row.attr_vals.join(' ')
             ).then(res=>{
                 console.log(res);
+                // console.log(this.catId,'///////////')
                 if(res.meta.status !==200){
                     return this.$message.err('添加失败')
                 }

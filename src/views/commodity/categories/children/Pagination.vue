@@ -43,7 +43,5 @@ export default {
 </script>
 
 <style>
-    .el-pagination{
-        margin-top: 25px;
-    }
+    
 </style>
