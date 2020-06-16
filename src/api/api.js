@@ -280,3 +280,13 @@ export function deleteGoodsList(id){//    删除商品
         }
     })
 }
+
+export function addGoods(goods_name,goods_cat,goods_price,goods_number,goods_weight,goods_introduce,pics,attrs){//    添加商品
+    return request({
+        method:'post',
+        url:'goods',
+        data:{
+            goods_name,goods_cat,goods_price,goods_number,goods_weight,goods_introduce,pics,attrs
+        }
+    })
+}
