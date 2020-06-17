@@ -290,3 +290,23 @@ export function addGoods(goods_name,goods_cat,goods_price,goods_number,goods_wei
         }
     })
 }
+
+// 订单管理
+
+export function getOrdersList(query,pagenum,pagesize,user_id,pay_status,is_send,order_fapiao_title,order_fapiao_company,order_fapiao_content,consignee_addr){// 订单数据列表
+    return request({
+        url:'orders',
+        params:{
+            query,pagenum,pagesize,user_id,pay_status,is_send,order_fapiao_title,order_fapiao_company,order_fapiao_content,consignee_addr
+        }
+    })
+}
+
+export function getKuaidi(id){// 查看物流信息
+    return request({
+        url:`/kuaidi/${id}`,
+        params:{
+            id
+        }
+    })
+}
