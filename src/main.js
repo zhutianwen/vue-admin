@@ -19,9 +19,9 @@ import 'assets/css/glob.css'
 import './fonts/iconfont.css'
 
 //引入axios
-// import axios from 'axios'
-// axios.defaults.baseURL = ''
-// Vue.prototype.$http = axios
+import axios from 'axios'
+axios.defaults.baseURL = ''
+Vue.prototype.$http = axios
 
 // import axios from 'axios'
 // axios.defaults.baseURL = ''
@@ -79,6 +79,12 @@ import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
 Vue.use(VueQuillEditor, /* { default global options } */)
+
+///////// 引入echarts
+// import echarts from 'echarts'
+// Vue.prototype.$echarts = echarts
+
+
 
 new Vue({
   el: '#app',

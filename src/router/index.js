@@ -11,6 +11,7 @@ import params from '@/views/commodity/params/params'
 import categories from '@/views/commodity/categories/categories'
 import addGoods from '@/views/commodity/goods/children/addGoods'
 import orders from '@/views/orders/orders'
+import reports from '@/views/reports/reports'
 
 Vue.use(Router)
 
@@ -68,6 +69,10 @@ const router = new Router({
         {
           path:'/orders',
           component:orders
+        },
+        {
+          path:'/reports',
+          component:reports
         },
       ]
     },

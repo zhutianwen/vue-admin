@@ -310,3 +310,10 @@ export function getKuaidi(id){// 查看物流信息
         }
     })
 }
+
+/////////////数据统计
+export function getReports(){// 基于时间统计的折线图
+    return request({
+        url:'reports/type/1',
+    })
+}

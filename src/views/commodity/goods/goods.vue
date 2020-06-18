@@ -49,7 +49,12 @@ export default {
             pagenum:1,
             pagesize:10,
             total:0,
-            goodsList:[]
+            goodsList:[],
+            queryInfo:{
+                query: '',
+                pagenum: 1,
+                pagesize: 10
+            }
         }
     },
     created(){
